@@ -1,0 +1,144 @@
+/* BEGIN ANCHOR (WCAG_FLASH_TRAINER_STYLES_V1) */
+:root {
+    --bg: #f7f7f7;
+    --panel: #ffffff;
+    --text: #111111;
+    --border: #222222;
+    --focus: #005fcc;
+    --muted: #444444;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -10rem;
+    background: var(--panel);
+    color: var(--text);
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    z-index: 10;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+header,
+main,
+footer {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid #cccccc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+fieldset {
+    border: 1px solid #999999;
+    padding: 1rem;
+    margin: 0 0 1rem 0;
+}
+
+legend {
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+select,
+button {
+    font: inherit;
+    padding: 0.55rem 0.75rem;
+    margin: 0.25rem 0;
+}
+
+button {
+    border: 2px solid var(--border);
+    background: var(--panel);
+    border-radius: 0.35rem;
+    cursor: pointer;
+}
+
+button:hover,
+button:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+}
+
+.choice-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.choice-list li {
+    margin: 0.75rem 0;
+}
+
+.choice-button {
+    width: 100%;
+    text-align: left;
+}
+
+.status {
+    min-height: 1.5rem;
+    font-weight: bold;
+}
+
+.meta {
+    color: var(--muted);
+}
+
+.keyboard-help kbd {
+    border: 1px solid #555555;
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.25rem;
+    background: #eeeeee;
+}
+
+.hidden {
+    display: none;
+}
+/* END ANCHOR (WCAG_FLASH_TRAINER_STYLES_V1) */
+
+.review-challenge-tools {
+    border-top: 1px solid #ccc;
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+.review-challenge-tools label {
+    display: block;
+    margin-top: 0.75rem;
+}
+
+.review-challenge-tools input,
+.review-challenge-tools textarea {
+    width: 100%;
+    max-width: 60rem;
+}
+
+#review-challenge-status {
+    margin-top: 1rem;
+}
