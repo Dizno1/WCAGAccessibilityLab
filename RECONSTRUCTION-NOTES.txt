@@ -1,0 +1,14 @@
+Reconstruction pass completed.
+
+Source of truth: DesignPhilosophyAndStandards.
+Architecture reference: CPACCAccessibilityLab.
+Modified project: WCAGAccessibilityLab.
+
+Implemented changes:
+- Replaced the WCAG Lab shell with the shared CPACC Lab application structure.
+- Preserved WCAG-specific source data in window.WCAG_DATA.
+- Added WCAG_LAB_DATA as the shared Lab question-bank model.
+- Added Reinforce, Practice, Challenge, and Sprint modes.
+- Added shared statistics, review, challenge, keyboard shortcut, live-region, focus-management, and mobile/reflow behavior from the CPACC Lab.
+- Rebuilt principle selection as the Lab domain selection layer: Perceivable, Operable, Understandable, Robust.
+- Randomized answer order while preserving correct-answer mapping.

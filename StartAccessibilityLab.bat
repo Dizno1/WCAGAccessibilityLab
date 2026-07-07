@@ -1,5 +1,5 @@
 @echo off
-title CPACC Accessibility Lab Launcher
+title WCAG Accessibility Lab Launcher
 
 cd /d "%~dp0"
 

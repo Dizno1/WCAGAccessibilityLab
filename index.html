@@ -3,152 +3,188 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WCAGAccessibilityLab- Open Door Design</title>
+    <title>WCAG Accessibility Lab - Open Door Design</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header>
-        <h1>Open Door Accessibility Lab</h1>
-        <p>Screen reader first accessibility practice using definitions, scenarios, review, and W3C guidance.</p>
+        <h1>WCAG Accessibility Lab</h1>
+        <p>Practice and reinforce WCAG Success Criteria through screen-reader-first WCAG learning activities.</p><details id="getting-started-details" open>
+            <summary id="getting-started-summary">Getting Started and Keyboard Tips</summary>
+            <p>Press Enter or Space to expand this section. Press Escape to collapse it and return focus to this button.</p>
+
+            <h2>Getting Started and Keyboard Tips</h2>
+
+            <h3>Screen reader mode</h3>
+            <ul>
+                <li>JAWS users: Turn off Virtual Cursor with JAWS Key + Z.</li>
+                <li>NVDA and Narrator users: Use Focus Mode.</li>
+                <li>The Lab is optimized for keyboard interaction while the screen reader is in Focus Mode or Browse Mode is off.</li>
+            </ul>
+
+            <h3>Starting a session</h3>
+            <ol>
+                <li>Select a learning mode.</li>
+                <li>Select one or more WCAG principles.</li>
+                <li>Select the number of questions, or Sprint time when using Sprint mode.</li>
+                <li>Activate Start Lab Session.</li>
+            </ol>
+
+            <h3>Answering questions</h3>
+            <ul>
+                <li>The question is read automatically.</li>
+                <li>Press Q to repeat the question.</li>
+                <li>Press A to read the answer choices.</li>
+                <li>Use 1 through 4, Tab, or form-field navigation to move through answer buttons.</li>
+                <li>Activate an answer with Space or Enter.</li>
+                <li>After answering, Continue To Next Question receives focus.</li>
+                <li>Press C, Space, or Enter to continue.</li>
+            </ul>
+
+            <h3>Reviewing missed questions</h3>
+            <ul>
+                <li>After a completed session, activate Review Missed Questions.</li>
+                <li>Alt+M opens Review Missed Questions efficiently when Focus Mode is active or Browse Mode is off.</li>
+                <li>Each review item is announced automatically.</li>
+                <li>Activate Next Missed Question to continue.</li>
+                <li>On the final review item, activate Finish Review.</li>
+                <li>After review is complete, Start New Session receives focus.</li>
+            </ul>
+
+            <h3>Optional shortcuts</h3>
+            <ul>
+                <li>Alt+S - Start Lab Session</li>
+                <li>Alt+M - Review Missed Questions</li>
+                <li>Alt+T - Open Statistics</li>
+                <li>Alt+H - Return Home</li>
+                <li>Q - Repeat the current question</li>
+                <li>A - Read answer choices</li>
+                <li>C - Continue after answering</li>
+                <li>N - Skip question</li>
+                <li>R - Read remaining Sprint time</li>
+                <li>Escape - Collapse this Getting Started section when it is expanded</li>
+            </ul>
+        </details>
     </header>
 
     <main id="main" tabindex="-1">
-        <section class="panel" aria-labelledby="setup-heading">
-            <h2 id="setup-heading">Trainer Setup</h2>
+        <section class="panel" aria-labelledby="setup-heading" id="setup-panel">
+            <h2 id="setup-heading">Lab Home</h2>
 
             <fieldset>
-                <legend>Question mode</legend>
-                <label><input type="radio" name="mode" value="definition-to-sc" checked> Definition to Success Criterion</label>
-                <label><input type="radio" name="mode" value="sc-to-definition"> Success Criterion to definition</label>
-                <label><input type="radio" name="mode" value="scenario-to-sc"> Scenario to Success Criterion</label>
+                <legend>Choose A Learning Mode</legend>
+                <label><input type="radio" name="mode" value="reinforce" checked> Reinforce</label>
+                <label><input type="radio" name="mode" value="practice"> Practice</label>
+                <label><input type="radio" name="mode" value="challenge"> Challenge</label><label><input type="radio" name="mode" value="sprint"> Sprint</label>
             </fieldset>
 
             <fieldset>
-                <legend>Filters</legend>
-
-                <label for="difficulty-level">Difficulty</label>
-                <select id="difficulty-level">
-                    <option value="beginner" selected>Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                    <option value="expert">Expert</option>
-                </select>
-
-                <fieldset>
-                    <legend>WCAG levels</legend>
-                    <label><input type="checkbox" name="level-filter" value="A" checked> A</label>
-                    <label><input type="checkbox" name="level-filter" value="AA" checked> AA</label>
-                    <label><input type="checkbox" name="level-filter" value="AAA"> AAA</label>
-                </fieldset>
-
-                <label for="principle-filter">Principle</label>
-                <select id="principle-filter">
-                    <option value="all">All principles</option>
-                </select>
-
-                <label for="practice-length">Practice length</label>
-                <select id="practice-length">
-                    <option value="5">5 questions</option>
-                    <option value="10">10 questions</option>
-                    <option value="20" selected>20 questions</option>
-                    <option value="all">All available questions</option>
-                </select>
+                <legend>Choose WCAG Principles</legend>
+                <label><input type="checkbox" name="domain" value="domain1" checked> Perceivable - information and user interface components must be presentable to users in ways they can perceive</label>
+                <label><input type="checkbox" name="domain" value="domain2"> Operable - user interface components and navigation must be operable</label>
+                <label><input type="checkbox" name="domain" value="domain3"> Understandable - information and operation of the user interface must be understandable</label>
+                <label><input type="checkbox" name="domain" value="domain4"> Robust - content must be robust enough to be interpreted by a wide variety of user agents, including assistive technologies</label>
             </fieldset>
 
-            <button type="button" id="start-button">Start practice</button>
-            <button type="button" id="new-question-button">Skip question</button>
-            <button type="button" id="repeat-wrong-button">Review incorrect answers</button>
+            <label for="practice-length">Number of questions</label>
+            <select id="practice-length" aria-describedby="practice-length-note">
+                <option value="5">5 questions</option>
+                <option value="10">10 questions</option>
+                <option value="20" selected>20 questions</option>
+                <option value="30">30 questions</option>
+                <option value="50">50 questions</option>
+                <option value="all">All available questions</option>
+            </select>
+            <p id="practice-length-note" class="meta">Used for Reinforce, Practice, and Challenge. Unavailable during Sprint.</p>
+
+            <label for="difficulty-filter">Difficulty</label>
+            <select id="difficulty-filter">
+                <option value="all" selected>All difficulties</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option><option value="mixed">Mixed</option>
+            </select>
+<label for="sprint-length">Sprint Time</label>
+            <select id="sprint-length" aria-describedby="sprint-length-note">
+                <option value="60">1 Minute</option>
+                <option value="180">3 Minutes</option>
+                <option value="300" selected>5 Minutes</option>
+                <option value="600">10 Minutes</option>
+                <option value="900">15 Minutes</option>
+            </select>
+            <p id="sprint-length-note" class="meta">Used for Sprint only. Unavailable for other modes.</p>
+
+            <p id="saved-challenges-summary" class="status">No saved challenges pending export.</p>
+            <button type="button" id="start-button" accesskey="s">Start Lab Session</button>
+            <button type="button" id="resume-button" accesskey="e">Resume Current Session</button>
+            <button type="button" id="statistics-button" accesskey="t">Open Statistics</button>
         </section>
 
-        <section class="panel" aria-labelledby="question-heading">
-            <h2 id="question-heading">Question</h2>
+        <section class="panel" aria-labelledby="question-heading" id="question-panel">
+            <h2 id="question-heading" tabindex="-1">Question</h2>
+            <p id="question-text" tabindex="-1">Choose a mode and press Start Lab Session to begin.</p>
+            <p id="location-text" class="meta">Perceivable - WCAG Principle. Reinforce mode.</p>
+            <p id="counter" class="meta">Question 0 of 0. Score 0 correct and 0 incorrect.</p>
 
-            <p id="counter" class="meta">
-                Question 0. Score 0 correct and 0 incorrect.
-            </p>
-
-            <p id="question-text" tabindex="-1">
-                Press Start practice to begin.
-            </p>
-
-            <h3 id="answers-heading" tabindex="-1">Answer choices</h3>
+            <h3 id="answers-heading" tabindex="-1">Answer Choices</h3>
             <ol id="choices" class="choice-list" aria-labelledby="answers-heading"></ol>
 
-            <p
-                id="feedback"
-                class="status"
-                role="status"
-                aria-live="polite">
-            </p>
+            <p id="feedback" class="status" role="status" aria-live="polite"></p>
+            <p id="advance-status" class="status" aria-live="polite"></p>
+            <p id="sprint-announcer" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true"></p>
 
-            <p
-                id="advance-status"
-                class="status"
-                aria-live="polite">
-            </p>
-
-            <button type="button" id="continue-button" aria-disabled="true">
-                Continue unavailable until answer is selected
-            </button>
+            <button type="button" id="next-question-button" aria-disabled="true" accesskey="c">Continue unavailable until answer is selected</button>
+            <button type="button" id="skip-button" accesskey="n">Skip Question</button>
+            <h2 id="review-heading" tabindex="-1" hidden>Review Missed Questions</h2>
+            <div id="review-content" class="review-content" tabindex="-1" role="region" aria-labelledby="review-heading" hidden></div>
+            <button type="button" id="review-missed-button" accesskey="m" hidden>Review Missed Questions</button>
+            <button type="button" id="previous-missed-button" hidden>Previous Missed Question</button>
+            <button type="button" id="next-missed-button" hidden>Next Missed Question</button>
+            <div id="review-challenge-panel" hidden></div>
+            <p id="review-challenge-status" class="status" role="status" aria-live="polite"></p>
+            <button type="button" id="export-challenges-button" hidden>Export Challenges for Instructor Review</button>
+            <button type="button" id="return-results-button" hidden>Start New Session</button>
+            <button type="button" id="review-statistics-button" hidden>Open Statistics</button>
+            <div id="review-complete-summary" hidden></div>
+            <div id="review-complete-actions" hidden>
+                <button type="button" id="review-start-button">Start New Session</button>
+                <button type="button" id="review-export-challenges-button" hidden>Export Saved Challenges</button>
+                <button type="button" id="review-clear-challenges-button" hidden>Clear Saved Challenges</button>
+                <button type="button" id="review-open-statistics-button">Open Statistics</button>
+                <button type="button" id="review-return-home-button">Return Home</button>
+            </div>
+            <button type="button" id="return-home-button" accesskey="h">Return Home</button>
         </section>
 
-        <section class="panel keyboard-help" aria-labelledby="shortcuts-heading">
-    <h2 id="shortcuts-heading">Keyboard Shortcuts and Navigation</h2>
-
-    <p>
-        Open Door Accessibility Lab is designed for both traditional screen reader browse mode and a faster keyboard-driven workflow. Choose the approach that works best for your testing and learning style.
-    </p>
-
-    <h3>Fast Practice Mode - Virtual Cursor Off</h3>
-
-    <p>
-        Press Ctrl+S to start a practice session from anywhere in the application. Press R to repeat the current question. Press A to hear the available answer choices. Press 1 through 4 to select an answer. Press C to continue to the next question after answering. Press N to skip the current question.
-    </p>
-
-    <h3>Browse Mode - Virtual Cursor On</h3>
-
-    <p>
-        Use heading navigation to move between major sections of the application. After a question is announced, move to the Answer Choices heading and continue reading or use form navigation to reach the answer buttons. After selecting an answer, focus moves to the Continue button.
-    </p>
-
-    <h3>Recommended Learning Flow</h3>
-
-    <p>
-        Beginner and Intermediate levels are intended to build recognition and familiarity with WCAG Success Criteria. Advanced and Expert levels introduce more realistic testing and audit scenarios designed to strengthen analysis, decision making, and accessibility evaluation skills.
-    </p>
-
-    <h3>Review Lab</h3>
-
-    <p>
-        After a session is complete, review missed questions, examine related W3C guidance, challenge answers that may have multiple valid interpretations, and export challenges for instructor review.
-    </p>
-</section>
-
-        <section class="panel" aria-labelledby="details-heading">
-            <h2 id="details-heading">Current Card Details</h2>
-            <p id="card-details">No card selected yet.</p>
+        <section class="panel" aria-labelledby="statistics-heading" id="statistics-panel">
+            <h2 id="statistics-heading" tabindex="-1">Statistics</h2>
+            <p id="statistics-summary">No questions answered yet.</p>
+            <ul id="domain-statistics"></ul>
+            <button type="button" id="reset-statistics-button">Reset Statistics</button>
+            <button type="button" id="statistics-home-button">Return Home</button>
         </section>
 
-        <section class="panel" aria-labelledby="summary-heading">
-            <h2 id="summary-heading">Session Summary</h2>
-            <p id="session-summary">No session completed yet.</p>
-            <ul id="weak-areas"></ul>
-        </section>
+            <section id="challenge-dialog" class="panel challenge-dialog" role="dialog" aria-modal="true" aria-labelledby="challenge-dialog-heading" aria-describedby="challenge-dialog-intro challenge-dialog-status" hidden>
+            <h2 id="challenge-dialog-heading" tabindex="-1">Challenge This Answer</h2>
+            <p id="challenge-dialog-intro">Use this form if you believe another answer may also be correct. Save Challenge saves and continues. Cancel Challenge or Escape cancels and continues.</p>
 
-        <section class="panel" aria-labelledby="review-heading">
-            <h2 id="review-heading">Review Lab</h2>
-            <p id="review-intro">
-                Complete a session to review missed questions, explore related Success Criteria, and challenge answers when more than one criterion may apply.
-            </p>
-            <div id="review-list"></div>
-            <p id="review-challenge-status" role="status" aria-live="polite"></p>
-            <button id="export-challenges-btn" type="button">Export challenges for instructor review</button>
+            <label for="challenge-proposed-answer">Proposed answer</label>
+            <input id="challenge-proposed-answer" type="text">
+
+            <label for="challenge-reasoning">Reasoning for instructor review</label>
+            <textarea id="challenge-reasoning" rows="4"></textarea>
+
+            <p id="challenge-error-message" class="status" role="alert" hidden></p>
+            <p id="challenge-dialog-status" class="status" role="status" aria-live="polite"></p>
+
+            <button type="button" id="challenge-save-button">Save Challenge</button>
+            <button type="button" id="challenge-cancel-button">Cancel Challenge</button>
         </section>
     </main>
 
     <footer>
-        <p>Open Door Design local prototype.</p>
+        <p>Open Door Design WCAG Accessibility Lab local prototype.</p>
     </footer>
 
     <script src="wcag-data.js"></script>
