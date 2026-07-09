@@ -1,89 +1,235 @@
-/* BEGIN ANCHOR (WCAG_ACCESSIBILITY_LAB_SHARED_STYLES_V1) */
+/* Open Door Design shared visual standard
+   AAA-oriented contrast, green as the single brand accent, no blue/green interface pairing. */
 :root {
-    --bg: #f7f7f7;
-    --panel: #ffffff;
-    --text: #111111;
-    --border: #222222;
-    --focus: #005fcc;
-    --muted: #444444;
+    --odd-bg: #F7FBF8;
+    --odd-panel: #FFFFFF;
+    --odd-panel-alt: #EAF3ED;
+    --odd-text: #111814;
+    --odd-heading: #0B1F16;
+    --odd-muted: #2F473A;
+    --odd-border: #2E4A3C;
+    --odd-border-soft: #9DB8A8;
+    --odd-green: #0B5D3B;
+    --odd-green-dark: #063D26;
+    --odd-green-deep: #042C1B;
+    --odd-focus: #F5B700;
+    --odd-focus-dark: #6B4F00;
+    --odd-shadow: 0 0.25rem 0.75rem rgba(4, 44, 27, 0.14);
 }
 
 * {
     box-sizing: border-box;
 }
 
+html {
+    background: var(--odd-bg);
+}
+
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.5;
-    color: var(--text);
-    background: var(--bg);
+    line-height: 1.6;
+    color: var(--odd-text);
+    background: var(--odd-bg);
+}
+
+body > header,
+body > main,
+body > footer,
+main {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+header {
+    border-bottom: 0.25rem solid var(--odd-green);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: var(--odd-heading);
+    line-height: 1.25;
+}
+
+h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: 0.35rem;
+}
+
+h2 {
+    font-size: clamp(1.35rem, 3vw, 1.8rem);
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+p,
+li,
+dd,
+dt {
+    max-width: 75ch;
+}
+
+a {
+    color: var(--odd-green-dark);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 0.12em;
+}
+
+a:visited {
+    color: var(--odd-green-deep);
+}
+
+a:hover {
+    color: var(--odd-green);
+}
+
+a:focus,
+a:focus-visible,
+button:focus,
+button:focus-visible,
+select:focus,
+select:focus-visible,
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+summary:focus,
+summary:focus-visible,
+[tabindex]:focus,
+[tabindex]:focus-visible {
+    outline: 0.25rem solid var(--odd-focus);
+    outline-offset: 0.2rem;
+    box-shadow: 0 0 0 0.45rem rgba(245, 183, 0, 0.25);
 }
 
 .skip-link {
     position: absolute;
     left: 1rem;
     top: -10rem;
-    background: var(--panel);
-    color: var(--text);
+    background: var(--odd-green-deep);
+    color: #FFFFFF;
     padding: 0.75rem 1rem;
-    border: 2px solid var(--border);
-    z-index: 10;
+    border: 0.2rem solid var(--odd-focus);
+    border-radius: 0.35rem;
+    z-index: 1000;
 }
 
-.skip-link:focus {
+.skip-link:visited {
+    color: #FFFFFF;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
     top: 1rem;
 }
 
-header,
-main,
-footer {
-    max-width: 64rem;
-    margin: 0 auto;
+.panel,
+section,
+fieldset,
+.review-content,
+.challenge-dialog,
+.status-box {
+    background: var(--odd-panel);
+    border: 0.12rem solid var(--odd-border-soft);
+    border-radius: 0.8rem;
     padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: var(--odd-shadow);
 }
 
-.panel {
-    background: var(--panel);
-    border: 1px solid #cccccc;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
+.panel:nth-of-type(even),
+.review-content {
+    background: var(--odd-panel-alt);
 }
 
 fieldset {
-    border: 1px solid #999999;
-    padding: 1rem;
-    margin: 0 0 1rem 0;
+    border-color: var(--odd-border);
 }
 
-legend {
-    font-weight: bold;
+legend,
+label,
+summary,
+dt,
+.status {
+    color: var(--odd-heading);
+    font-weight: 700;
 }
 
-label {
-    display: block;
-    margin: 0.5rem 0;
+summary {
+    cursor: pointer;
+    padding: 0.45rem 0;
+}
+
+.meta,
+.note {
+    color: var(--odd-muted);
 }
 
 select,
+input,
+textarea,
 button {
     font: inherit;
-    padding: 0.55rem 0.75rem;
-    margin: 0.25rem 0;
 }
 
-button {
-    border: 2px solid var(--border);
-    background: var(--panel);
-    border-radius: 0.35rem;
+select,
+input,
+textarea {
+    color: var(--odd-text);
+    background: var(--odd-panel);
+    border: 0.12rem solid var(--odd-border);
+    border-radius: 0.4rem;
+    padding: 0.6rem 0.75rem;
+}
+
+button,
+.button,
+[role="button"] {
+    color: #FFFFFF;
+    background: var(--odd-green);
+    border: 0.15rem solid var(--odd-green-deep);
+    border-radius: 0.45rem;
+    padding: 0.65rem 0.9rem;
+    margin: 0.25rem 0;
     cursor: pointer;
+    font-weight: 700;
+}
+
+button:visited,
+.button:visited {
+    color: #FFFFFF;
 }
 
 button:hover,
-button:focus {
-    outline: 3px solid var(--focus);
-    outline-offset: 2px;
+.button:hover,
+[role="button"]:hover {
+    color: #FFFFFF;
+    background: var(--odd-green-dark);
+}
+
+button[aria-pressed="true"],
+button.active,
+.button.active {
+    color: #FFFFFF;
+    background: var(--odd-green-deep);
+    border-color: var(--odd-focus-dark);
+}
+
+button:disabled,
+[disabled],
+[aria-disabled="true"] {
+    color: var(--odd-text);
+    background: #D8E2DC;
+    border-color: var(--odd-muted);
+    cursor: not-allowed;
+    opacity: 1;
 }
 
 .choice-list {
@@ -101,20 +247,48 @@ button:focus {
     text-align: left;
 }
 
+.choice-label {
+    display: block;
+    color: var(--odd-text);
+    background: var(--odd-panel-alt);
+    border: 0.12rem solid var(--odd-border-soft);
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+}
+
 .status {
     min-height: 1.5rem;
-    font-weight: bold;
 }
 
-.meta {
-    color: var(--muted);
-}
-
-.keyboard-help kbd {
-    border: 1px solid #555555;
+.keyboard-help kbd,
+kbd {
+    color: var(--odd-heading);
+    background: var(--odd-panel-alt);
+    border: 0.12rem solid var(--odd-border);
     border-radius: 0.25rem;
-    padding: 0.1rem 0.25rem;
-    background: #eeeeee;
+    padding: 0.1rem 0.35rem;
+    font-weight: 700;
+}
+
+.review-challenge-tools {
+    border-top: 0.12rem solid var(--odd-border-soft);
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+.review-challenge-tools label {
+    display: block;
+    margin-top: 0.75rem;
+}
+
+.review-challenge-tools input,
+.review-challenge-tools textarea,
+.challenge-dialog input,
+.challenge-dialog textarea {
+    display: block;
+    width: 100%;
+    max-width: 60rem;
+    margin-top: 0.25rem;
 }
 
 .sr-only {
@@ -129,58 +303,6 @@ button:focus {
     border: 0;
 }
 
-[disabled],
-[aria-disabled="true"] {
-    opacity: 0.65;
-}
-
 .hidden {
     display: none;
-}
-/* END ANCHOR (WCAG_ACCESSIBILITY_LAB_SHARED_STYLES_V1) */
-
-.review-challenge-tools {
-    border-top: 1px solid #ccc;
-    margin-top: 1rem;
-    padding-top: 1rem;
-}
-
-.review-challenge-tools label {
-    display: block;
-    margin-top: 0.75rem;
-}
-
-.review-challenge-tools input,
-.review-challenge-tools textarea {
-    width: 100%;
-    max-width: 60rem;
-}
-
-#review-challenge-status {
-    margin-top: 1rem;
-}
-
-.review-content {
-    border: 1px solid #cccccc;
-    padding: 1rem;
-    margin: 0.75rem 0;
-}
-
-
-.challenge-dialog {
-    border: 2px solid currentColor;
-    margin-top: 1rem;
-}
-
-.challenge-dialog label {
-    display: block;
-    margin-top: 0.75rem;
-}
-
-.challenge-dialog input,
-.challenge-dialog textarea {
-    display: block;
-    width: 100%;
-    max-width: 48rem;
-    margin-top: 0.25rem;
 }
