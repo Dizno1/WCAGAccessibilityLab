@@ -109,3 +109,184 @@ This session added depth (families) rather than raw breadth toward 1,200-1,500. 
 2. **Named industries not yet given their own family**: Social Media, Travel, Streaming Media, Restaurant Ordering, Authentication (as a dedicated family beyond the shorter scenario from the first expansion), Documents, Mobile Applications, Enterprise Applications/Dashboards, Forms (as their own family rather than folded into other families).
 3. At 66 questions per session for a 5-page family, reaching the 1,200-1,500 range through this same family structure implies roughly 12-15 more families of similar depth - a realistic, multi-session roadmap, not a next-session finish line.
 
+
+## Progressive Difficulty and Continued Family Expansion (This Session)
+
+Following the recommendation to introduce progressive scenarios (revisiting one domain at increasing difficulty, not just adding breadth) and to continue building named industry families, this session added **51 new questions**, bringing the running total from 408 to **459**.
+
+### Progressive difficulty, demonstrated for the first time
+
+**Government Services Portal A / B / C** (28 questions total: 11 + 10 + 7) is this Lab's first deliberately progressive family, built specifically to demonstrate the pattern for future sessions to follow:
+
+- **Portal A (beginner)** - single, clear-cut issues, one per question, across a Benefits Application Landing page, License Renewal form, Document Upload, and Payment - easy/medium difficulty, straightforward identification.
+- **Portal B (intermediate)** - multiple *interacting* failures across a Multi-Step Eligibility Wizard, an Appeals Process, and Notification Preferences. Includes a deliberately constructed pair of questions where the same page satisfies one timing criterion (2.2.1, warning-and-extension) while separately violating a closely related one (2.2.6, advance disclosure) - built specifically to test distinguishing between similar criteria rather than pattern-matching "timeout = violation."
+- **Portal C (advanced)** - genuinely ambiguous edge cases requiring professional judgment: a fraud-prevention team's legitimate objection to an accessible-authentication finding; evaluating whether a documented accessibility-statement limitation is professionally honest or a cop-out; whether a legally-mandated same-day deadline can defensibly claim 2.2.1's essential-timing exception; and catching a *new* violation (a keyboard trap) introduced by a well-intentioned fix for a different one (3.3.4). None of Portal C's seven questions have an obviously "correct-sounding" wrong answer removed for convenience - they are built to require actual reasoning about competing legitimate constraints, not just criterion lookup.
+
+This existing Banking Portal family (from the first scenario-family session) was **not** retroactively relabeled "Portal A" or restructured, per the standing instruction not to modify previously added content. The progressive pattern starts fresh with Government Services and is intended as the template for revisiting other existing families (Banking, Hospital, University, Shopping) with their own B and C tiers in future sessions, rather than renaming what already exists.
+
+### Two further single-tier families
+
+- **Airline Booking Platform** (12 questions) - Flight Search, Seat Selection, Passenger Details, Baggage & Add-ons, Boarding Pass/Check-in. Includes a deliberately layered pair of findings on the same seat map component (missing accessible names/state, and a separate color-only availability indicator) to reinforce that fixing one does not automatically fix the other.
+- **Social Media Platform** (11 questions) - News Feed, Post Composer, Notifications, Profile Settings, Direct Messaging. Includes a Root Cause Analysis question specifically framing a missing alt-text *field* (not missing alt text itself) as a platform-level responsibility distinct from any individual user's content choices.
+
+### A mistake that recurred a third time, and what changed as a result
+
+The "expert" difficulty-tier mistake, already documented twice in this README, happened again in this session's files - 11 more instances. It was caught the same way, by running schema validation before packaging rather than trusting the draft. This is the third consecutive session this exact mistake has occurred, which says something worth stating plainly: documenting a mistake in a README does not, by itself, prevent repeating it in a later session with no memory of the earlier note. What actually changed this time is a difference in process, not just outcome: before running the full validation script, a fast, targeted check was run first (`grep` for every distinct `"difficulty"` value actually present in the new file) specifically because this exact failure mode was expected going in, and the same spacing-tolerant fix from last session was applied immediately once it appeared, rather than being rediscovered from scratch. Total time to catch and fix was faster as a direct result, even though the mistake itself still happened. Future sessions extending this Lab should treat "grep the difficulty field before validating" as a standing pre-check, not an occasional one.
+
+### Updated totals
+
+- **Total questions: 459** (234 original + 108 + 66 + 51 across three expansion sessions).
+- **44 of 87 Success Criteria now have deep, scenario-based coverage** beyond baseline (up from 39).
+- Question type distribution now: Application (177), Recognition (97), Recall (87), Remediation Planning (35), Multi-Success-Criterion Analysis (12), User Impact (13), Root Cause Analysis (8), Best Next Action (8), Audit Documentation (7), Severity Assessment (10), Prioritization (5).
+
+### Verification performed before packaging
+
+Identical discipline, re-run against the fully combined four-file dataset (`wcag-data.js` + all three expansion files): all files pass syntax check; all 459 questions validated against the schema; zero duplicate IDs; zero duplicate question text; zero Success Criteria with no coverage; the actual `getAvailableQuestions()` filtering logic simulated against the full array confirms every domain/mode combination returns questions and Sprint mode correctly pulls all 459.
+
+### Still not the final destination
+
+1. **43 of 87 Success Criteria** still have only baseline coverage.
+2. **Named industries still without a dedicated family**: Hotel Reservation, Streaming Media, Enterprise Dashboards, Document Accessibility (as its own family, beyond the shorter scenario in the first expansion), Mobile Applications (as its own family), Authentication and Account Management (as its own family), Complex Forms, Maps and Geospatial Interfaces, Collaboration Tools, Healthcare Administration (distinct from the existing Hospital Portal, which is patient-facing), Financial Reporting, Learning Management Systems.
+3. **The progressive A/B/C pattern exists for exactly one family** (Government Services). Extending it to the four existing single-tier families (Banking, Hospital, University, Shopping) by adding their own B and C tiers is real, valuable, unstarted work - a natural next step given those families' foundational content already exists.
+
+
+## Continued Breadth-First Coverage (This Session)
+
+Per the "coverage map, breadth first, then depth" direction, this session added **37 new questions** across four further foundational, single-tier industry families, bringing the running total from 459 to **496**:
+
+- **Hotel Reservation Platform** (11 questions) - Property Search, Room Selection, Guest Details & Booking, Amenities & Reviews, Confirmation & Modification.
+- **Learning Management System** (10 questions) - Course Dashboard, Video Lecture Player, Quiz & Assessment, Discussion Forum, Gradebook. Includes a worked example directly addressing a common real-world excuse: a "request captions with two weeks notice" policy is evaluated and rejected as not equivalent to 1.2.2 compliance, since it structurally disadvantages the requesting student every time versus classmates with immediate access.
+- **Insurance Platform** (9 questions) - Quote Calculator, Policy Comparison, Claims Filing, Document Center.
+- **Public Transit App** (7 questions) - Trip Planner, Real-Time Arrivals, Fare Payment, Service Alerts. Includes a live-region urgency judgment question: recognizing that announcing every 15-second countdown tick as assertive would be actively harmful, versus a polite region limited to meaningful threshold changes - reinforcing that "add a live region" is not itself always the complete, correct fix without also getting the urgency level right.
+
+### The recurring difficulty-tier mistake: caught earlier this time, still not eliminated
+
+The same "expert" difficulty-tier error occurred a **fourth** consecutive session - 1 instance this time, in the Public Transit family. What changed: it was caught by a pre-check grep run against the draft scratch files, before they were ever combined into the expansion file or touched by the full validation script, rather than being caught after integration as in the previous three sessions. The fix was applied to the source scratch file directly, and the full validation pass after integration came back clean on the first run, with zero schema errors of any kind - the first session where that has been true. This is worth stating precisely rather than claiming the underlying mistake is "fixed": the error still happened; what improved is how early in the process it was caught, which meant less rework. Whether this represents a durable process improvement or was simply a lower-volume occurrence this session (1 instance versus 11-16 in prior sessions) is not yet something four data points can distinguish with confidence.
+
+### Updated totals
+
+- **Total questions: 496** (234 original + 108 + 66 + 51 + 37 across four expansion sessions).
+- **43 of 87 Success Criteria have deep coverage** (more than 3 questions), essentially unchanged from last session's 44 - this session prioritized breadth (new industries) over adding further depth to already-covered criteria, consistent with the "breadth first, then depth" direction. This is expected and correct given that framing, not a stall.
+- **11 industry families now exist**: Banking, Healthcare (Hospital), Government Services (with A/B/C progressive tiers), University Registration, Shopping/Retail, Airline Booking, Social Media, Hotel Reservation, Learning Management System, Insurance, Public Transit.
+
+### Verification performed before packaging
+
+Identical discipline, re-run against the fully combined five-file dataset: all files pass syntax check; all 496 questions validated against the schema with zero errors on the first full pass; zero duplicate IDs; zero duplicate question text; zero Success Criteria with no coverage; the actual `getAvailableQuestions()` filtering logic simulated against the full array confirms every domain/mode combination returns questions and Sprint mode correctly pulls all 496.
+
+### Coverage map: what remains, from the standing industry list
+
+**Not yet represented by any family**: Retail is covered by the existing Shopping Platform family (same category, different name); News Website, Enterprise Dashboard (the first expansion's dashboard content was one scenario within a broader family, not its own dedicated family), HR Portal, Mobile App (as its own dedicated family, distinct from mobile-specific questions folded into other families), Streaming Service, Restaurant Ordering (a short scenario exists from the very first expansion session, not yet a full family), Financial Reporting, Document Management (distinct from the shorter Documents scenario in the first expansion), Collaboration Platform, Authentication (as its own dedicated family, distinct from the shorter Authentication scenario in the first expansion), Maps and Geospatial, Complex Forms (as its own dedicated family).
+
+**Progressive A/B/C tiers exist for exactly one family** (Government Services). The four families added in the second expansion session (Banking, Hospital, University, Shopping) and the seven added since remain single-tier. Per the stated breadth-first strategy, this is being left as-is for now rather than developed further this session.
+
+
+## Domain-4 Weighted Expansion, and a Repository-Wide Bug Found Across Prior Sessions (This Session)
+
+Per the flagged Domain 4 (Robust) thinness (35 questions versus 160-170 in other domains), this session's new content was deliberately weighted toward 4.1.2 Name/Role/Value and 4.1.3 Status Messages, and a repository-wide consistency check introduced this session caught a real, pre-existing bug spanning three prior expansion files.
+
+### Four new families, 34 questions, half of them Domain 4
+
+- **Streaming Service** (11 questions) - Video Player, Content Browse, Watchlist, Subtitle Settings, Profile Switching. Deliberately concentrated on custom player-control accessible naming and state (play/pause, volume slider, Skip Intro announcement), plus a 3.3.4 question testing whether "delete user-controllable data" (a watchlist) falls under Error Prevention even though the criterion's short name suggests only legal/financial scope.
+- **Enterprise Dashboard** (9 questions) - a dedicated family this time, distinct from the single scenario folded into the first expansion. Widget Configuration, Filters & Date Range, Real-Time KPI Tiles, Data Export, Alert Rules. Includes a live-region urgency question that rejects "assertive" for a routinely-refreshing metric and, further, questions whether automatic announcement is even the right approach at all for this kind of content versus on-demand availability.
+- **Mobile Application** (7 questions) - a dedicated family, distinct from mobile-specific questions folded into other families. Tab Bar Navigation, Gesture Controls (including 2.5.4 Motion Actuation for a shake-to-undo feature, a criterion not previously used anywhere in this Lab), Push Notification Settings, Offline Sync Status, In-App Purchase.
+- **Authentication & Account Management** (7 questions) - a dedicated family, distinct from the shorter Authentication scenario in the first expansion. Login, Multi-Factor Verification, Password Reset, Account Recovery, Session Management. Includes a 3.3.9 (AAA) question and a judgment question weighing whether a 5-minute MFA window with no low-friction resend option is a defensible security measure or stricter than the stated goal requires.
+
+### A repository-wide bug found and fixed, spanning three previously delivered sessions
+
+While fixing this session's own domain/principle field consistency (three mismatches caught by the now-standard pre-integration check), the same check was, for the first time, run against the **entire** accumulated question bank rather than only the newest file. It found **20 mismatches total**, only 3 of them in this session's new content - the other 17 were already present in `wcag-lab-expansion-2.js` (3), `wcag-lab-expansion-3.js` (6), and `wcag-lab-expansion-4.js` (11), meaning they shipped in the two previous delivered sessions without being caught.
+
+This matters functionally, not just cosmetically: `domain` is the field the app's actual filtering logic uses to place a question under a WCAG Principle tab; `principle` is a separate metadata field that happened to always be authored correctly. Where the two disagreed, the question was displaying under the *wrong* Principle filter - a Robust-focused practice session, for example, would have silently excluded several genuinely Robust-principle questions that were mistakenly tagged `domain2` or `domain3`. This is very likely part of why Domain 4 measured thinner than it actually was: some of its content existed but was miscategorized, not missing.
+
+All 20 were fixed by correcting only the `domain` field to match the already-correct `principle` field, in place, in the three affected files - no question text, choices, or explanations were touched. This is treated as a bug fix to existing content, not a prohibited "regeneration" of it, consistent with how the recurring `"expert"` difficulty-value bug was handled in prior sessions: the substantive quiz content is unchanged, and only a metadata field that controls correct app behavior was corrected.
+
+### Domain distribution, before and after this session's fix
+
+| Domain | Before this session | After new content | After bug fix |
+|---|---|---|---|
+| Domain 1 (Perceivable) | 160 | 162 | 167 |
+| Domain 2 (Operable) | 170 | 176 | 170 |
+| Domain 3 (Understandable) | 131 | 140 | 138 |
+| Domain 4 (Robust) | 35 | 52 | **55** |
+
+Domain 4 grew from 35 to 55 - partly from 17 newly-written Domain-4-focused questions this session, and partly from recovering questions that were already Robust-principle content but had been sitting mislabeled under other domains since earlier sessions. The gap with Domain 1/2 is narrower now but still real and still the largest domain imbalance in the bank.
+
+### The recurring difficulty-tier mistake: sixth occurrence
+
+The `"expert"` value appeared 5 more times in this session's draft files, caught by the same pre-integration grep check before combination, same as the last two sessions. Fixed the same way. This is now the fourth consecutive session it has occurred. The domain/principle mismatch bug above was caught specifically *because* the difficulty pre-check habit prompted a broader "check this new file for known mistake patterns before integrating" review, which is arguably the more useful outcome of that repeated failure than the difficulty fix itself.
+
+### Updated totals
+
+- **Total questions: 530** (234 original + 108 + 66 + 51 + 37 + 34 across five expansion sessions).
+- **15 industry families now exist**: Banking, Healthcare (Hospital), Government Services (with A/B/C progressive tiers), University Registration, Shopping/Retail, Airline Booking, Social Media, Hotel Reservation, Learning Management System, Insurance, Public Transit, Streaming Service, Enterprise Dashboard, Mobile Application, Authentication & Account Management.
+
+### Verification performed before packaging
+
+All six JS files pass syntax check. All 530 questions validated against the schema, **now including domain/principle consistency as a standard check**, not just for new content but re-run against the entire accumulated bank - zero errors. Zero duplicate IDs across all 530. Zero duplicate question text. Zero Success Criteria with no coverage. The actual `getAvailableQuestions()` filtering logic simulated against the full array confirms every domain/mode combination returns questions and Sprint mode correctly pulls all 530.
+
+### Still not the final destination
+
+**Not yet represented by a dedicated family**: News Website, Restaurant Ordering (a short scenario exists from the first expansion, not yet a full family), Document Management (distinct from the shorter Documents scenario in the first expansion), Collaboration Platform, Maps and Geospatial Tools, Complex Forms, Financial Reporting, Human Resources Portal.
+
+**Progressive A/B/C tiers exist for exactly one family** (Government Services). Fourteen other families remain single-tier.
+
+**A process note for whoever continues this**: this session's discovery suggests any future session adding a new consistency check should run it against the *entire* accumulated bank on first use, not only new content - the domain/principle check would have caught 17 more bugs sessions earlier if it had been introduced then instead of now. There may be other latent, never-checked-for consistency issues in the existing bank that a differently-framed check would surface; this is worth treating as an open question rather than assuming the bank is otherwise clean simply because no one has found anything else yet.
+
+
+## Validation Dashboard (This Session)
+
+Per the request to move from README prose toward automatically generated, self-verifying statistics, this session adds `generate-validation-report.js`: a standalone, read-only Node script that loads the exact same data files the running app loads, in the same order, and produces a full report - total questions, breakdown by Principle, by every individual Success Criterion, by industry family (with a checklist against the full target list, not just what exists), by difficulty, by mode, by question type, and the complete set of validation checks this project has accumulated across five sessions (duplicate IDs, duplicate text, schema completeness, difficulty values, domain/principle consistency, Success Criterion coverage, and filtering simulation).
+
+**This is intentionally not a runtime feature.** It does not touch `index.html` or `app.js`, adds no script tag, and has zero effect on the deployed application - confirmed by grep before packaging. It is a maintainer tool: run `node generate-validation-report.js` from this directory before and after any content session to get exact, computed numbers rather than hand-tallied ones.
+
+**Usage:**
+```
+node generate-validation-report.js
+```
+This prints the report to the console and also writes it to `VALIDATION-REPORT.md` in this directory, which is included in this delivered archive as a snapshot as of this session.
+
+**The script auto-discovers expansion files** by matching the `wcag-lab-expansion(-N).js` naming pattern already established, sorted numerically, so a future `wcag-lab-expansion-6.js` will be picked up automatically without editing this script - only the `FAMILY_MANIFEST` list (which industries are being tracked as targets) needs manual updating when a new industry is added to the roadmap, since that is a planning decision, not something derivable from the data.
+
+**Running it for the first time immediately demonstrated its own value**: the Industry Families section revealed that "Enterprise Dashboard" and "Mobile Application" already had small precursor scenarios from the very first expansion session (4 and 5 questions respectively) that this session's own prose had been describing as building these as new dedicated families "distinct from" - technically true for the dedicated-family structure, but the READMEs across several sessions had been undercounting actual total coverage for these two topics by not accounting for the earlier scenario-level content. The script's family counts (13 for Enterprise Dashboard, 12 for Mobile Application) are more accurate than any single session's hand-written total, because they check the entire accumulated bank by substring match rather than relying on a session's memory of what it personally added.
+
+**Confirmed output, this session, matches every hand-verified figure reported across the five prior sessions exactly**: 530 total questions, 167/170/138/55 by Principle, zero validation failures. This is not a coincidence - it is what re-running the same checks that were previously done by hand in one-off Node commands, now formalized into one reusable script, should produce.
+
+### What the dashboard does not yet do
+
+- It does not distinguish a "dedicated family" (5+ connected pages, 15-25 questions) from a "short scenario" (1 page, 4-6 questions) within its family count - both count toward the same total if they share a detection string. The prose distinction some READMEs draw between these two forms is not something this script currently enforces or checks.
+- It has no historical tracking (session-over-session deltas); it always reports the current, total state of the bank, not what changed since the last run. Comparing two runs' output remains a manual diff for now.
+- The `FAMILY_MANIFEST` list is maintained by hand and could drift out of sync with the actual roadmap if a family is renamed or a new one is added without updating it here.
+
+
+## Dashboard-Driven Expansion: Targeting Weak Coverage Directly (This Session)
+
+This is the first session where new content was planned using the validation dashboard's output as the actual starting point, rather than choosing an industry first and letting coverage fall out however it happened to land. `generate-validation-report.js` was extended with a **Coverage Tiers** section (Baseline: 1-4 questions, Developing: 5-9, Strong: 10-19, Deep: 20+), then run before any new content was written to get the real, current list of the 53 weakest (non-obsolete) Success Criteria, and four families were designed specifically to strengthen clusters of them.
+
+### A real data-accuracy issue found and flagged, not fixed by deletion
+
+Before planning, the Baseline tier's very first pass showed 4.1.1 Parsing as an active criterion with 3 questions. 4.1.1 was formally removed from WCAG as obsolete in WCAG 2.2 - this Lab's original `WCAG_DATA` (present before any of this project's expansion sessions) never reflected that removal. The dashboard now flags this explicitly wherever 4.1.1 appears, marked `[OBSOLETE - do not target]`, so no future session mistakes it for a genuine coverage gap and adds more content teaching an outdated requirement as if it were current. Per this project's standing rule against modifying or removing previously added content, the existing 3 questions were left in place rather than deleted - this is a flag for future awareness, not a content edit.
+
+### Four families, each built around specific Baseline-tier criteria
+
+- **Financial Reporting Platform** (11 questions) - targets 1.2.1 (audio-only earnings call transcripts), 1.2.5 (audio description for a video presentation), 3.1.3/3.1.4 (unexplained financial jargon and abbreviations, with a question distinguishing the two related-but-different criteria), 2.5.2 (touch-triggered chart navigation with no cancel opportunity), 2.4.5/2.4.8 (a 200-page report with no navigation aids, then a stricter AAA location-indicator finding on top of it).
+- **Document Management Platform** (9 questions) - targets 1.4.4 (a document viewer that doesn't genuinely resize text), 1.4.5/1.4.9 (an image-of-text file-type badge, tested at both the AA and stricter AAA level), 1.3.6 (unlabeled toolbar icons), 2.4.9 (link text that passes the more lenient 2.4.4 standard via context but fails the stricter link-text-alone standard - a deliberately close call testing that distinction), 2.4.10 (an unstructured 40-entry changelog), 2.5.6 (a device wrongly assumed to be touch-only despite an active keyboard).
+- **Collaboration Platform** (9 questions) - targets 2.2.2 (undisableable cursor-following auto-scroll), 2.3.1/2.3.2 (a flashing typing indicator, tested at both levels, with a severity question specifically addressing that 2.3.1 findings carry genuine physical safety risk, not only usability impact), 1.4.13 (a hover preview card failing all three of dismissible/hoverable/persistent), 3.2.1 (a comment box that auto-submits on focus loss), 2.5.4 (a shake-to-react gesture with no alternative).
+- **Human Resources Portal** (7 questions) - targets 2.4.2 (identical tab titles across every page), 2.4.3 (a dynamically-inserted field with illogical tab order), 2.4.7 (a submit button with no focus indicator), 3.2.5 (an AAA-level question testing that satisfying the more lenient 3.2.2 doesn't automatically satisfy the stricter 3.2.5), 3.3.5/3.3.6 (missing contextual help; extending 3.3.4's safeguard principle to low-stakes checklist items under full AAA conformance), 2.5.5 (target size, tested against the AA/AAA distinction on the same checkboxes).
+
+### Both recurring mistakes, caught again before integration - and what that consistency is starting to show
+
+The `"expert"` difficulty value appeared twice more in this session's drafts, caught by the pre-integration grep, same as the last several sessions. The domain/principle mismatch (discovered and retroactively fixed across three prior files last session) also recurred - 3 more instances in this session's own new content, caught by the same check before combination. Both were fixed in the scratch files before they ever reached an expansion file. Six consecutive sessions for the difficulty mistake, two for the domain/principle one (since that check has only existed for two sessions) - these are not improving in the sense of stopping, but the catch point keeps moving earlier and the fix keeps getting faster, which is the more honest way to describe what's actually changed.
+
+### Verified impact: 9 Success Criteria moved out of the Baseline tier this session
+
+Directly comparing the dashboard's Coverage Tiers output before and after this session's integration: the Baseline tier shrank from 53 genuine (non-obsolete) criteria to 43. Nine specifically crossed into the Developing tier as a direct result of this session's targeted content: **1.2.1, 2.2.2, 2.3.1, 2.4.3, 2.4.5, 2.4.9, 2.5.2, 2.5.4, 3.1.3**. A further large number of criteria remained in Baseline but moved from 3 questions to 4, incremental progress toward the same threshold. This is a directly falsifiable claim, not a general impression - anyone can run `node generate-validation-report.js` before and after this session's files are present and see the same tier counts.
+
+### Updated totals
+
+- **Total questions: 566** (234 original + 108 + 66 + 51 + 37 + 34 + 36 across six expansion sessions).
+- **19 of 23 manifest-tracked industry families now exist.** Still missing: News Website, Restaurant Ordering as a dedicated family (a short scenario exists from the first expansion), Maps & Geospatial, Complex Forms as a dedicated family.
+- **Coverage tiers: 43 Baseline (down from 53), 31 Developing (up from 21), 8 Strong, 4 Deep**, plus the one flagged obsolete criterion.
+
+### Verification performed before packaging
+
+All seven JS files pass syntax check. `generate-validation-report.js` run against the complete, integrated seven-file dataset reports zero failures across all eight checks on the first run after this session's fixes were applied. `VALIDATION-REPORT.md` in this archive is the actual output of that run, not a hand-written summary.
+
