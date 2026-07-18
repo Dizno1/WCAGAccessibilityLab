@@ -857,6 +857,105 @@ window.WCAG_DATA = [
         "description": "In content implemented using markup languages, status messages can be programmatically determined through role or properties such that they can be presented to the user by assistive technologies without receiving focus.",
         "shortDescription": "In content implemented using markup languages, status messages can be programmatically determined through role or properties such that they can be presented to the user by assistive technologies without receiving focus.",
         "screenReaderDetectable": "Yes"
+    },
+    {
+        "principle": "Operable",
+        "guideline": "Navigable",
+        "sc": "2.4.11 Focus Not Obscured (Minimum)",
+        "scNumber": "2.4.11",
+        "scName": "Focus Not Obscured (Minimum)",
+        "level": "AA",
+        "description": "When a user interface component receives keyboard focus, the component is not entirely hidden due to author-created content.",
+        "shortDescription": "When a user interface component receives keyboard focus, the component is not entirely hidden due to author-created content.",
+        "screenReaderDetectable": "No"
+    },
+    {
+        "principle": "Operable",
+        "guideline": "Navigable",
+        "sc": "2.4.12 Focus Not Obscured (Enhanced)",
+        "scNumber": "2.4.12",
+        "scName": "Focus Not Obscured (Enhanced)",
+        "level": "AAA",
+        "description": "When a user interface component receives keyboard focus, no part of the component is hidden by author-created content.",
+        "shortDescription": "When a user interface component receives keyboard focus, no part of the component is hidden by author-created content.",
+        "screenReaderDetectable": "No"
+    },
+    {
+        "principle": "Operable",
+        "guideline": "Navigable",
+        "sc": "2.4.13 Focus Appearance",
+        "scNumber": "2.4.13",
+        "scName": "Focus Appearance",
+        "level": "AAA",
+        "description": "When the keyboard focus indicator is visible, an area of the focus indicator meets all the following: is at least as large as the area of a 2 CSS pixel thick perimeter of the unfocused component or sub-component, and has a contrast ratio of at least 3:1 between the same pixels in the focused and unfocused states.",
+        "shortDescription": "When the keyboard focus indicator is visible, an area of the focus indicator meets minimum size and contrast requirements between the focused and unfocused states.",
+        "screenReaderDetectable": "No"
+    },
+    {
+        "principle": "Operable",
+        "guideline": "Input Modalities",
+        "sc": "2.5.7 Dragging Movements",
+        "scNumber": "2.5.7",
+        "scName": "Dragging Movements",
+        "level": "AA",
+        "description": "All functionality that uses a dragging movement for operation can be achieved by a single pointer without dragging, unless dragging is essential or the functionality is determined by the user agent and not modified by the author.",
+        "shortDescription": "All functionality that uses a dragging movement for operation can be achieved by a single pointer without dragging, unless dragging is essential.",
+        "screenReaderDetectable": "No"
+    },
+    {
+        "principle": "Operable",
+        "guideline": "Input Modalities",
+        "sc": "2.5.8 Target Size (Minimum)",
+        "scNumber": "2.5.8",
+        "scName": "Target Size (Minimum)",
+        "level": "AA",
+        "description": "The size of the target for pointer inputs is at least 24 by 24 CSS pixels, except where the target is available through an equivalent link or control on the same page that is at least 24 by 24 CSS pixels, spacing is provided so the target offers a 24 CSS pixel diameter unobscured area, the target's size is determined by the user agent and not modified by the author, or a particular presentation of the target is essential to the information being conveyed.",
+        "shortDescription": "The size of the target for pointer inputs is at least 24 by 24 CSS pixels, with defined exceptions for inline targets, equivalent controls, sufficient spacing, user-agent-controlled size, and essential presentation.",
+        "screenReaderDetectable": "No"
+    },
+    {
+        "principle": "Understandable",
+        "guideline": "Predictable",
+        "sc": "3.2.6 Consistent Help",
+        "scNumber": "3.2.6",
+        "scName": "Consistent Help",
+        "level": "A",
+        "description": "If a web page contains any of the following help mechanisms, and those mechanisms are repeated on multiple web pages within a set of web pages, they occur in the same order relative to other page content, unless a change is initiated by the user: human contact details, human contact mechanism, self-help option, a fully automated contact mechanism.",
+        "shortDescription": "Repeated help mechanisms (human contact details, human contact mechanism, self-help option, or fully automated contact mechanism) occur in the same relative order across pages within a set of pages.",
+        "screenReaderDetectable": "No"
+    },
+    {
+        "principle": "Understandable",
+        "guideline": "Input Assistance",
+        "sc": "3.3.7 Redundant Entry",
+        "scNumber": "3.3.7",
+        "scName": "Redundant Entry",
+        "level": "A",
+        "description": "Information previously entered by or provided to the user that is required to be entered again in the same process is either auto-populated or available for the user to select, except when re-entering the information is essential, the information is required to ensure the security of the content, previously entered information is no longer valid, or re-entry does not pose significant burden.",
+        "shortDescription": "Information previously entered by the user in the same process is auto-populated or available to select, rather than requiring re-entry, except in defined cases.",
+        "screenReaderDetectable": "No"
+    },
+    {
+        "principle": "Understandable",
+        "guideline": "Input Assistance",
+        "sc": "3.3.8 Accessible Authentication (Minimum)",
+        "scNumber": "3.3.8",
+        "scName": "Accessible Authentication (Minimum)",
+        "level": "AA",
+        "description": "A cognitive function test (such as remembering a password or solving a puzzle) is not required for any step in an authentication process unless that step provides at least one alternative method that does not rely on a cognitive function test, a mechanism is available to assist the user in completing the cognitive function test, or the cognitive function test is to recognize objects or non-text content the user provided to the website.",
+        "shortDescription": "No step in an authentication process may require a cognitive function test unless an alternative, an assistive mechanism, or a user-provided object/content recognition exception applies.",
+        "screenReaderDetectable": "No"
+    },
+    {
+        "principle": "Understandable",
+        "guideline": "Input Assistance",
+        "sc": "3.3.9 Accessible Authentication (Enhanced)",
+        "scNumber": "3.3.9",
+        "scName": "Accessible Authentication (Enhanced)",
+        "level": "AAA",
+        "description": "A cognitive function test (such as remembering a password or solving a puzzle) is not required for any step in an authentication process unless that step provides at least one alternative method that does not rely on a cognitive function test, or a mechanism is available to assist the user in completing the cognitive function test.",
+        "shortDescription": "No step in an authentication process may require a cognitive function test unless an alternative or an assistive mechanism is provided; this level removes the object-recognition exception 3.3.8 allows.",
+        "screenReaderDetectable": "No"
     }
 ];
 
