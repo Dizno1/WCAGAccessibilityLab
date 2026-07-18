@@ -79,12 +79,36 @@
                 <label><input type="radio" name="mode" value="challenge"> Challenge</label><label><input type="radio" name="mode" value="sprint"> Sprint</label>
             </fieldset>
 
-            <fieldset>
+            <fieldset class="principle-options">
                 <legend>Choose WCAG Principles</legend>
-                <label><input type="checkbox" name="domain" value="domain1" checked> Perceivable - information and user interface components must be presentable to users in ways they can perceive</label>
-                <label><input type="checkbox" name="domain" value="domain2"> Operable - user interface components and navigation must be operable</label>
-                <label><input type="checkbox" name="domain" value="domain3"> Understandable - information and operation of the user interface must be understandable</label>
-                <label><input type="checkbox" name="domain" value="domain4"> Robust - content must be robust enough to be interpreted by a wide variety of user agents, including assistive technologies</label>
+                <label class="principle-option">
+                    <input type="checkbox" name="domain" value="domain1" checked>
+                    <span class="principle-content">
+                        <span class="principle-name">Perceivable</span>
+                        <span class="principle-description">Information and user interface components must be presentable to users in ways they can perceive.</span>
+                    </span>
+                </label>
+                <label class="principle-option">
+                    <input type="checkbox" name="domain" value="domain2">
+                    <span class="principle-content">
+                        <span class="principle-name">Operable</span>
+                        <span class="principle-description">User interface components and navigation must be operable.</span>
+                    </span>
+                </label>
+                <label class="principle-option">
+                    <input type="checkbox" name="domain" value="domain3">
+                    <span class="principle-content">
+                        <span class="principle-name">Understandable</span>
+                        <span class="principle-description">Information and operation of the user interface must be understandable.</span>
+                    </span>
+                </label>
+                <label class="principle-option">
+                    <input type="checkbox" name="domain" value="domain4">
+                    <span class="principle-content">
+                        <span class="principle-name">Robust</span>
+                        <span class="principle-description">Content must be robust enough to be interpreted by a wide variety of user agents, including assistive technologies.</span>
+                    </span>
+                </label>
             </fieldset>
 
             <label for="practice-length">Number of questions</label>

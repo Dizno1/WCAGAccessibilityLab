@@ -306,3 +306,61 @@ kbd {
 .hidden {
     display: none;
 }
+
+/* Visual remediation: keep each WCAG principle as a distinct, readable option. */
+.principle-options {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.principle-option {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--odd-panel-alt);
+    border: 0.12rem solid var(--odd-border-soft);
+    border-radius: 0.6rem;
+    cursor: pointer;
+}
+
+.principle-option:hover {
+    border-color: var(--odd-border);
+}
+
+.principle-option input[type="checkbox"] {
+    margin-top: 0.25rem;
+}
+
+.principle-content,
+.principle-name,
+.principle-description {
+    display: block;
+}
+
+.principle-name {
+    margin-bottom: 0.15rem;
+    color: var(--odd-heading);
+    font-weight: 700;
+}
+
+.principle-description {
+    color: var(--odd-text);
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Keep the skip link readable without narrow fixed-width wrapping. */
+.skip-link {
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    white-space: nowrap;
+}
+
+@media (max-width: 30rem) {
+    .skip-link {
+        white-space: normal;
+    }
+}
