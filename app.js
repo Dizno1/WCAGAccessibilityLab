@@ -559,13 +559,18 @@
         els.advanceStatus.textContent = "";
         setNextAvailable(false);
         if (state.mode === "sprint") {
-            els.questionHeading.textContent = "Sprint Question";
+            els.questionHeading.textContent = "Question " + String(state.currentIndex + 1) + ".";
             els.questionText.textContent = getLearnerQuestionText(question);
-            els.answersHeading.textContent = "Sprint Answer Choices";
+            els.answersHeading.textContent = "Answer Choices";
             renderChoices(question);
             els.nextQuestionButton.hidden = true;
             els.skipButton.hidden = true;
-            els.advanceStatus.textContent = "Sprint question " + String(state.currentIndex + 1) + ". Choose an answer by activating one of the answer buttons, or press 1 through 4 on a keyboard.";
+            // Sprint mode uses exactly one announcement channel per question
+            // (announceSprintPrompt, via els.sprintAnnouncer below). advanceStatus
+            // is intentionally left empty here rather than also announcing
+            // "Sprint question X..." - a second, overlapping live region firing
+            // the same information is what made repeated Sprint use noisy.
+            els.advanceStatus.textContent = "";
             announceSprintPrompt(question);
             if (moveFocus !== false) {
                 if (state.currentIndex === 0) {
@@ -588,8 +593,12 @@
         }
     }
 
-    function buildSprintPrompt(question) {
+    function buildSprintPrompt(question, includeInstructions) {
         var parts = [];
+        if (includeInstructions) {
+            parts.push("Sprint started. Press 1 through 4 to choose an answer, or use Tab and Enter.");
+        }
+        parts.push("Question " + String(state.currentIndex + 1) + ".");
         parts.push(getLearnerQuestionText(question));
         question.choices.forEach(function (choice, index) {
             parts.push(String(index + 1) + ". " + choice + ".");
@@ -598,7 +607,12 @@
     }
 
     function announceSprintPrompt(question) {
-        var prompt = buildSprintPrompt(question);
+        // Instructions are announced once, on the first question of the Sprint
+        // session, and never repeated afterward - every later question is
+        // announced as just "Question X." followed by the question and choices,
+        // with no re-stated "press 1 through 4" reminder.
+        var includeInstructions = state.currentIndex === 0;
+        var prompt = buildSprintPrompt(question, includeInstructions);
         if (!els.sprintAnnouncer) {
             return;
         }
@@ -963,8 +977,11 @@
         els.choices.innerHTML = "";
         state.lastResultsText = "Sprint complete. Questions answered: " + String(answered) + ". Correct answers: " + String(state.sessionCorrect) + ". Incorrect answers: " + String(state.sessionIncorrect) + ". Accuracy: " + String(accuracy) + " percent.";
         state.lastResultsStatus = buildResultsStatus();
-        els.feedback.textContent = state.lastResultsText;
-        els.advanceStatus.textContent = state.lastResultsStatus;
+        // Results are announced once, as a single combined update on one live
+        // region, rather than the results text and the next-step guidance
+        // firing as two separate announcements.
+        els.feedback.textContent = state.lastResultsText + " " + state.lastResultsStatus;
+        els.advanceStatus.textContent = "";
         setNextAvailable(false);
         hideQuizControls();
         if (els.returnResultsButton) {
@@ -977,7 +994,14 @@
         updateReviewButton();
         renderStatistics();
         saveState();
-        focusElement(els.feedback);
+        // Move focus directly to Review Missed Questions when it's available,
+        // since that is the most likely next action after a Sprint; otherwise
+        // fall back to the results announcement itself.
+        if (els.reviewMissedButton && !els.reviewMissedButton.hidden) {
+            focusElement(els.reviewMissedButton);
+        } else {
+            focusElement(els.feedback);
+        }
     }
 
 

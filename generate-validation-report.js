@@ -111,6 +111,26 @@ const familyStatus = FAMILY_MANIFEST.map(f => ({
 }));
 
 // ---------------------------------------------------------------------------
+// 3b. Professional workflow manifest - conceptually distinct from an industry
+//     family. A workflow cuts across industries and tests a stage of
+//     professional practice itself (auditing, design review, procurement, QA)
+//     rather than finding violations on one specific product.
+// ---------------------------------------------------------------------------
+
+const WORKFLOW_MANIFEST = [
+  { name: "Accessibility Audit Engagement", detect: "Workflow: Accessibility Audit" },
+  { name: "Design Review", detect: "Workflow: Design Review" },
+  { name: "Procurement", detect: "Workflow: Procurement" },
+  { name: "Development / Code Review", detect: "Workflow: Development" },
+  { name: "QA Testing", detect: "Workflow: QA Testing" }
+];
+const workflowStatus = WORKFLOW_MANIFEST.map(f => ({
+  name: f.name,
+  present: lessonText.includes(f.detect),
+  count: questions.filter(q => (q.lesson || "").includes(f.detect)).length
+}));
+
+// ---------------------------------------------------------------------------
 // 3. Validation checks. Each check runs against the FULL accumulated bank,
 //    not just the newest file - per the standing note that a check introduced
 //    for new content should always also be run retroactively against
@@ -238,6 +258,23 @@ const TIERS = [
   { name: "Strong (10-19 questions)", min: 10, max: 19 },
   { name: "Deep (20+ questions)", min: 20, max: Infinity }
 ];
+const tierCounts = TIERS.map(tier => WCAG_DATA.filter(sc => {
+  const c = scCounts[sc.scNumber] || 0;
+  return c >= tier.min && c <= tier.max;
+}).length);
+
+report.push("### Coverage Progress (at a glance)");
+report.push("");
+report.push("```");
+report.push("Baseline   (1-4)  ....... " + tierCounts[0]);
+report.push("Developing (5-9)  ....... " + tierCounts[1]);
+report.push("Strong     (10-19) ...... " + tierCounts[2]);
+report.push("Deep       (20+)  ....... " + tierCounts[3]);
+report.push("```");
+report.push("");
+report.push("Compare this block against the same section in a previous session's `VALIDATION-REPORT.md` (or the README's session-by-session notes) to see criteria migrating upward through the tiers over time. The goal of future sessions should generally be shrinking Baseline and Developing while growing Strong and Deep, not simply growing the total question count.");
+report.push("");
+
 for (const tier of TIERS) {
   const inTier = WCAG_DATA.filter(sc => {
     const c = scCounts[sc.scNumber] || 0;
@@ -256,6 +293,15 @@ for (const f of familyStatus) {
 }
 report.push("");
 report.push("Family detection works by matching each question's `lesson` field against a known string (see FAMILY_MANIFEST in this script). A family showing as missing may still have a short, non-dedicated scenario elsewhere in the bank that this check does not count as a full family - see the README's prose notes for that distinction.");
+report.push("");
+
+report.push("## Professional Workflows");
+report.push("");
+report.push("Distinct from an industry family: a workflow cuts across industries and tests a stage of professional accessibility practice itself (scoping, testing methodology, severity assignment, writing findings, evaluating vendor claims, code review, verifying fixes) rather than finding violations on one specific product's pages. See WORKFLOW_MANIFEST in this script.");
+report.push("");
+for (const w of workflowStatus) {
+  report.push((w.present ? "- [x] " : "- [ ] ") + w.name + (w.present ? " (" + w.count + " questions)" : " - not yet built"));
+}
 report.push("");
 
 report.push("## By Difficulty");

@@ -290,3 +290,84 @@ Directly comparing the dashboard's Coverage Tiers output before and after this s
 
 All seven JS files pass syntax check. `generate-validation-report.js` run against the complete, integrated seven-file dataset reports zero failures across all eight checks on the first run after this session's fixes were applied. `VALIDATION-REPORT.md` in this archive is the actual output of that run, not a hand-written summary.
 
+
+## Professional Workflows, and a Sprint Mode Accessibility Refinement (This Session)
+
+This session added a new *kind* of content, not another industry, and separately made a real change to the running application itself (with explicit authorization to do so, unlike prior content-only sessions that were instructed not to touch `app.js`).
+
+### Expansion 7: 26 questions, four professional workflow families
+
+`wcag-lab-expansion-7.js` adds **26 questions**, bringing the total from 566 to **592**. Three are documented here per the specific request; a fourth (Accessibility Audit Engagement, 9 questions) was also completed as part of the same body of work and is included in the delivered archive and dashboard counts, since removing completed, validated content to match a shorter recap would itself violate the standing rule against discarding prior work.
+
+- **Design Review** (7 questions) - catching accessibility issues in mockups and design systems before any code is written: a contrast failure measured directly in a Figma file, a missing text-alternative plan for an infographic, an undersized touch target caught at the specification stage, a design system's button component with no focus-state defined at all (so every team using it either omits one or invents inconsistent styling), a color-only status palette baked into system documentation, a reading-level concern raised during content planning rather than after launch, and a full-screen scroll-triggered animation with no reduce-motion consideration.
+- **Procurement** (5 questions) - evaluating vendor accessibility claims rather than auditing an organization's own product: recognizing that a VPAT claiming universal, unqualified "Supports" is less credible than one with specific "Partially Supports" detail; comparing two vendors' VPAT entries for the same criterion; scoping a one-week independent verification effort; converting a vague verbal remediation promise into a documented, time-bound commitment for a Critical finding; and explicitly surfacing an accessibility-versus-cost tradeoff for decision-makers rather than silently picking the cheaper option.
+- **QA Testing** (5 questions) - the day-to-day defect lifecycle distinct from a full external audit: reliably reproducing a vaguely-reported keyboard issue, writing a bug report with the detail a developer can actually act on, verifying that a "fixed" ticket addresses the complete original defect (not just its more visible half), adding an automated regression test at the shared-component level so a fixed keyboard trap cannot silently reappear across all 12 places that component is used, and choosing a practical, resource-constrained screen-reader test-plan baseline (NVDA and VoiceOver).
+
+**Also completed:** Accessibility Audit Engagement (9 questions) - the full consulting lifecycle: defensible scoping under time pressure, recognizing what automated tools cannot verify, applying consistent severity criteria across two differently-severe findings, writing a complete finding, writing an accurate VPAT remark for partial conformance, explaining a prioritization decision to a client whose intuition (traffic) conflicts with actual severity, verifying a fix addresses a finding's *complete* original scope, and synthesizing 14 individually-filed findings into one systemic recommendation.
+
+### Industry families versus professional workflows - now tracked separately
+
+The validation dashboard previously had one manifest (`FAMILY_MANIFEST`) for industry verticals. This session added a second, independent one (`WORKFLOW_MANIFEST`) and a corresponding "Professional Workflows" report section, because these are genuinely different things and conflating them would make the coverage picture misleading:
+
+- An **industry family** (Banking, Hospital, Streaming, etc.) is a specific product's pages, and the skill being tested is finding and fixing violations within that product.
+- A **professional workflow** (Audit, Design Review, Procurement, QA) cuts across every industry and tests a *stage of professional practice itself* - scoping, severity judgment, writing a finding, evaluating a vendor's claim, verifying a fix - illustrated with a representative finding rather than anchored to one company's product.
+
+Both are tracked via the same detection mechanism (matching a distinctive string in each question's `lesson` field) but against two separate manifests, confirmed independent by directly re-running the dashboard and inspecting each section in isolation.
+
+### Sprint Mode: refined for experienced, repeated screen reader use
+
+This session made a real, explicit change to `app.js` and `index.html` themselves - not just content - per specific authorization to do so (prior sessions were told not to touch the running application; this one was asked to). Every change is scoped narrowly to Sprint mode's announcement behavior:
+
+1. **Per-question announcement shortened.** Previously, every question fired two separate, overlapping announcements: `els.advanceStatus` said "Sprint question X. Choose an answer by activating one of the answer buttons, or press 1 through 4 on a keyboard," *and* a second live region (`els.sprintAnnouncer`) separately announced the full question and all four choices. Now there is exactly one announcement channel per question. `els.advanceStatus` is left empty in Sprint mode; `els.sprintAnnouncer` alone carries the content, beginning with "Question X." rather than "Sprint question X. Choose an answer...".
+2. **Instructions announced exactly once per session.** "Sprint started. Press 1 through 4 to choose an answer, or use Tab and Enter." now prepends only to the very first question's announcement (`state.currentIndex === 0`). Every subsequent question in the same Sprint session omits it entirely - verified directly by simulating `buildSprintPrompt()` across a 3-question sequence and confirming the instruction text appears only in the first output.
+3. **Redundant setup-screen help text removed.** The "Sprint Time" dropdown's `aria-describedby` note, "Used for Sprint only. Unavailable for other modes.", was removed along with its paragraph element. The control's own `disabled` state (already correctly toggled based on selected mode) already conveys unavailability; the separate text was restating what the disabled state already communicates.
+4. **The Sprint announcer region itself was not actually polite.** While making these changes, `#sprint-announcer` was found to be `role="alert" aria-live="assertive"`, not `role="status" aria-live="polite"` like every other status region in this app (`#feedback`, `#advance-status`). Assertive announcements interrupt whatever a screen reader is currently saying; for a mode explicitly meant to feel fast and non-disruptive for repeated use, this is the opposite of what was needed. Changed to `role="status" aria-live="polite"`, matching the rest of the app and the explicit instruction to verify every live region is polite.
+5. **Completion announcement combined into one.** `completeSprint()` previously set `els.feedback` to the results text ("Sprint complete. Questions answered: X...") *and* separately set `els.advanceStatus` to next-step guidance ("Review Missed Questions is available.") - two live regions firing on the same event. Now both are combined into a single `els.feedback` update; `els.advanceStatus` is cleared rather than also populated.
+6. **Focus after completion moves to Review Missed Questions.** Previously, focus always moved to `els.feedback` after Sprint completion. Now, if `els.reviewMissedButton` is visible (there were missed questions), focus moves there directly. If there were no missed questions, the button doesn't exist to focus, and the prior fallback (`els.feedback`) is preserved.
+
+**What was deliberately left unchanged.** Moving focus to `els.questionText` for every question after the first (unchanged from before) means a screen reader may announce that element's content via the focus change *in addition to* the `sprintAnnouncer` live-region announcement of the same text - a pre-existing overlap this session did not resolve. Removing or redirecting that focus target risks breaking Tab-order continuity into the answer-choice buttons, a bigger structural change than what was explicitly requested here. This is named directly rather than silently left for someone to discover as a "new" bug later - it existed before this session's changes and still exists after them.
+
+**Verification performed:** all changes pass `node --check app.js`; the announcement-building logic (`buildSprintPrompt`) was traced in isolation across a simulated 3-question sequence and confirmed to produce instructions only on question 1; every `aria-live` region in `index.html` was re-checked and confirmed polite. This was not tested against a real JAWS, NVDA, or VoiceOver instance, since no screen reader is available in this environment - that remains manual verification for whoever next opens this in a real browser with real assistive technology, and should not be read as already confirmed by this session.
+
+### Full validation checklist, run explicitly and individually
+
+Every item below was checked as its own discrete step against the complete, integrated repository, not inferred from the dashboard's summary alone:
+
+- [x] JavaScript syntax validation on all 10 `.js` files
+- [x] `generate-validation-report.js` run against the complete repository - exit code 0, all checks pass
+- [x] All 7 expansion files load in correct numerical order in `index.html`
+- [x] All 592 question IDs unique
+- [x] All 592 question texts unique
+- [x] All 592 questions pass schema validation
+- [x] All difficulty values are exactly `easy`, `medium`, or `hard` - zero exceptions
+- [x] Success Criterion, Principle, domain, and lesson metadata consistent across all 592 questions
+- [x] Industry-family detection confirmed working (19 of 23 manifest families present)
+- [x] Workflow-family detection confirmed working independently of industry detection (4 of 5 manifest workflows present, via a separate manifest and report section)
+- [x] Compact Coverage Progress summary (42 / 31 / 9 / 5) independently recomputed and confirmed to match the detailed tier lists exactly, summing to all 87 Success Criteria with no gaps or overlaps
+- [x] Learner-facing filtering logic (`getAvailableQuestions()`) simulated against the full 592-question array - every domain/mode combination returns a non-zero count, Sprint mode correctly pulls all 592
+
+No errors were found requiring correction in this pass; all items passed on first check, reflecting fixes already applied to draft content before this session's files were combined into `wcag-lab-expansion-7.js`.
+
+### Updated totals
+
+- **Total questions: 592** (234 original + 108 + 66 + 51 + 37 + 34 + 36 + 26 across seven expansion sessions).
+- **Coverage Progress: Baseline 42, Developing 31, Strong 9, Deep 5** (plus 4.1.1, flagged obsolete, tracked separately).
+- **19 of 23 manifest-tracked industry families; 4 of 5 manifest-tracked professional workflows.**
+
+### Remaining high-value gaps
+
+**Industry families still missing:** News Website, Restaurant Ordering as a dedicated family (a short scenario exists from the first expansion), Maps & Geospatial, Complex Forms as a dedicated family.
+
+**Workflow families still missing:** Development / Code Review - reviewing a pull request for accessibility issues, choosing appropriate linting/testing tooling, and preventing regressions from a code-authoring perspective (distinct from QA Testing's defect-lifecycle perspective, already built).
+
+**Coverage tiers:** 42 Success Criteria remain in the Baseline tier (1-4 questions). A prioritized list is available directly from `generate-validation-report.js`'s Coverage Tiers section on demand, rather than reproduced here where it would immediately go stale as soon as the next session runs.
+
+### Recommended focus for the next session
+
+Two defensible directions, not mutually exclusive:
+
+1. **Close the workflow set** by building Development / Code Review, completing all five originally-named workflows before adding further ones.
+2. **Continue dashboard-driven Baseline reduction**, re-running `generate-validation-report.js` first to get the current (not this session's now-slightly-stale) Baseline list, and building 2-3 more families or workflow questions specifically targeting whatever remains weakest at that time.
+
+Either is a reasonable next step; what matters is starting from a fresh dashboard run rather than this README's now-fixed snapshot, since coverage numbers are the one thing in this document guaranteed to be out of date the moment new content is added.
+
